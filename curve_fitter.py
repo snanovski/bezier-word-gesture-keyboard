@@ -180,7 +180,7 @@ sigma = keyRadius = 1/10
 steps = 20
 
 load_word_endpoints_dictionary()
-#load_training_data("user_data.txt")
+#load_training_data("./Data/user_data.txt")
 load_training_data("./Data/user_training_data_first_half.txt")
 
 #print(getAverageScore(np.array([[0.29130457, -0.01436536], [0.78482133,  0.04207516]])))
@@ -199,7 +199,8 @@ def opt_fun(p):
 
 # getSteppedBezierCurve(word_endpoint_dictionary["hello"], np.array([[1/3, 1/3], [2/3, -1/3]]))
 
-optimal_params = np.array([[0.291, -0.014], [0.785, 0.042]])
+#optimal_params = np.array([[0.291, -0.014], [0.785, 0.042]])
+optimal_params = np.array([[0.32648901, -0.03634604],  [0.68830283,  0.04100238]])
 norm_factor = (1/sigma/math.sqrt(2*math.pi))**2
 print(norm_factor)
 scores_opt = []
