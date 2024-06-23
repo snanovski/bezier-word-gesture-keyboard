@@ -1,2 +1,4 @@
-Data/*
-__pycache__/*
+Data
+__pycache__
+WG Keyboard/.vs
+WG Keyboard/Library
