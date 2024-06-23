@@ -10,7 +10,7 @@ import math
 word_endpoint_dictionary = {}
 
 def load_word_endpoints_dictionary():
-    file = open("graph_qwerty_direct.txt")
+    file = open("./Data/graph_qwerty_direct.txt")
     #file = open("graph_qwerty_line_20.txt")
     #file = open("graph_qwerty_beziercubic_20.txt")
     for line in file.readlines():
@@ -25,14 +25,13 @@ training_data = []
 def load_training_data(filename):
     file = open(filename)
     for i, line in enumerate(file.readlines()):
-        if (i == 500):
-            break
+        #if (i == 500):
+        #    break
         if (line.startswith("=")):
             continue        
         parts = line.split(":")
         if (len(parts[0]) == 1):
             continue
-        print(line)
         coords = list(map(float, parts[1].split(",")))
         steppedCoords = getUserInputStepPoints(np.vstack((coords[0::2], coords[1::2])).T, 20)
         training_data.append((parts[0], steppedCoords))
@@ -182,7 +181,7 @@ steps = 20
 
 load_word_endpoints_dictionary()
 #load_training_data("user_data.txt")
-load_training_data("./Data/user_training_data_final.txt")
+load_training_data("./Data/user_training_data_first_half.txt")
 
 #print(getAverageScore(np.array([[0.29130457, -0.01436536], [0.78482133,  0.04207516]])))
 
@@ -199,6 +198,20 @@ def opt_fun(p):
     return -score
 
 # getSteppedBezierCurve(word_endpoint_dictionary["hello"], np.array([[1/3, 1/3], [2/3, -1/3]]))
+
+optimal_params = np.array([[0.291, -0.014], [0.785, 0.042]])
+norm_factor = (1/sigma/math.sqrt(2*math.pi))**2
+print(norm_factor)
+scores_opt = []
+scores_lines = []
+for sample in training_data:
+    s = getScoreForSample(sample, optimal_params) / norm_factor
+    scores_opt.append(s)
+    s = getScoreForSample(sample, np.array([])) / norm_factor
+    scores_lines.append(s)
+
+print(f"Bezier: Mean = {np.mean(scores_opt)}, STD = {np.std(scores_opt)}, Count = {len(scores_opt)}")
+print(f"Lines: Mean = {np.mean(scores_lines)}, STD = {np.std(scores_lines)}, Count = {len(scores_lines)}")
 
 print(-getAverageScore(np.array([])))
 

@@ -6,9 +6,9 @@ files_part_1.extend(["user_07.txt", "user_08.txt", "user_10.txt", "user_11.txt",
 
 files_part_2 = ["user_14.txt", "user_15.txt", "user_16.txt", "user_17.txt", "user_18.txt", "user_19.txt", "user_20.txt", "user_21.txt", "user_22.txt"]
 
-#files = files_part_1
-files = files_part_2
-files.extend(files_part_1)
+files = files_part_1
+#files = files_part_2
+#files.extend(files_part_1)
 
 bezier_data = []
 bezier_wpm = 0.0
@@ -159,10 +159,10 @@ for file in files:
     print(f"For file = {file}: WPM = {cur_wpm / cur_count}")
 
 # print(user_data_for_training[0])
-# f = open("./Data/user_training_data_final.txt", "a")
-# for line in user_data_for_training:
-#     f.write(f"{line}\n")
-# f.close()
+f = open("./Data/user_training_data_first_half.txt", "a")
+for line in user_data_for_training:
+    f.write(f"{line}\n")
+f.close()
 
 print(f"Removed samples = {removed_samples}")
 
